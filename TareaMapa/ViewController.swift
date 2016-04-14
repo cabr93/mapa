@@ -65,11 +65,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             let priceLocation:CLLocation = CLLocation(latitude: punto.latitude, longitude: punto.longitude)
             let meters:CLLocationDistance = userLocation.distanceFromLocation(priceLocation)
             if meters > 50{
-                self.cont = true
-                self.distancia += meters
+                if meters > 150{
+                    self.cont = true
+                    self.distancia = 0
+                    let allAnnotations = self.mapa.annotations
+                    self.mapa.removeAnnotations(allAnnotations)
+                }else{
+                    self.cont = true
+                    self.distancia += meters
+                }
             }
-            //print(meters)
-            //print(zoom)
         }
     }
     @IBAction func zoom(sender: UIStepper) {
